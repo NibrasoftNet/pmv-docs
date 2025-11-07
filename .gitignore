@@ -110,3 +110,5 @@ pids
 
 # DynamoDB Local files
 .dynamodb/
+/deployment/pmv-db/
+/deployment/storage/

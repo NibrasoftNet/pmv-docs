@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: pmv-postgres
+    ports:
+      - ${DATABASE_PORT}:5432
+    volumes:
+      - ./pmv-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+  adminer:
+    image: adminer:latest
+    container_name: pmv-adminer
+    restart: always
+    ports:
+      - ${ADMINER_PORT}:8080
+  minio:
+    image: minio/minio:RELEASE.2024-04-18T19-09-19Z
+    ports:
+      - "9000:9000" 
+      - "9001:9001"
+    volumes:
+      - ./storage:/data
+    environment:
+      MINIO_ROOT_USER: minio-turbo
+      MINIO_ROOT_PASSWORD: minio-turbo-secret
+    command: server --console-address ":9001" /data
+  maildev:
+    container_name: pmv-maildev
+    build:
+      context: .
+      dockerfile: maildev.Dockerfile
+    ports:
+      - ${MAIL_CLIENT_PORT}:1080
+      - ${MAIL_PORT}:1025
+volumes:
+  pmv-db:

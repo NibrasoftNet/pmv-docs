@@ -1,0 +1,2 @@
+ALTER TABLE "country" ADD "languageId" integer NOT NULL;
+ALTER TABLE "country" ADD CONSTRAINT "FK_578f260ceb6e8a4a33268d442eb" FOREIGN KEY ("languageId") REFERENCES "language"("id") ON DELETE CASCADE ON UPDATE NO ACTION;

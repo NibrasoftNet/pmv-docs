@@ -1,0 +1,3 @@
+CREATE TABLE "article_category" ("created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, "id" integer NOT NULL, "name" character varying NOT NULL, "level" integer NOT NULL, "parentId" integer, "languageId" integer NOT NULL, CONSTRAINT "PK_cdd234ef147c8552a8abd42bd29" PRIMARY KEY ("id"));
+ALTER TABLE "article_category" ADD CONSTRAINT "FK_a05f83aedf4a91ae5d7c956e59c" FOREIGN KEY ("parentId") REFERENCES "article_category"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "article_category" ADD CONSTRAINT "FK_d052e0a7be2e9cafc7ffa23758f" FOREIGN KEY ("languageId") REFERENCES "language"("id") ON DELETE CASCADE ON UPDATE NO ACTION;

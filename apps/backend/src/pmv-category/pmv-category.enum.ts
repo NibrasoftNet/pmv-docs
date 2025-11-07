@@ -1,0 +1,13 @@
+export enum PMVCategoryEnum {
+    AUTOMOBILE = "AUTOMOBILE",
+    COMMERCIAL = "COMMERCIAL",
+    MOTO = "MOTO",
+    LCV = "LCV",
+    DRIVERCAB = "DRIVERCAB",
+    TRACTOR = "TRACTOR",
+    AXLE = "AXLE",
+    ENGINE = "ENGINE",
+    BUS = "BUS",
+    AFTERMARKET = "AFTERMARKET",
+    VIRTUALOEM = "VIRTUALOEM",
+}

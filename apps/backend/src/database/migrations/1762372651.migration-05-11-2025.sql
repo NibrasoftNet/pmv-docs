@@ -1,0 +1,2 @@
+CREATE TABLE "pmv_category" ("created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, "id" SERIAL NOT NULL, "value" text NOT NULL, "label" text NOT NULL, "languageId" integer NOT NULL, CONSTRAINT "PK_13cb08c82dd13f772a34b4df1b2" PRIMARY KEY ("id"));
+ALTER TABLE "pmv_category" ADD CONSTRAINT "FK_2c45634a87e87ec8358ac58004f" FOREIGN KEY ("languageId") REFERENCES "language"("id") ON DELETE CASCADE ON UPDATE NO ACTION;

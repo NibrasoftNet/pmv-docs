@@ -1,0 +1,5 @@
+CREATE TABLE "article" ("created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, "id" SERIAL NOT NULL, "name" character varying NOT NULL, "code" character varying NOT NULL, "specifications" jsonb, "supplierId" integer NOT NULL, "articleCategoryId" integer NOT NULL, "articleReferenceId" integer NOT NULL, "languageId" integer NOT NULL, CONSTRAINT "PK_40808690eb7b915046558c0f81b" PRIMARY KEY ("id"));
+ALTER TABLE "article" ADD CONSTRAINT "FK_714928cb2a05646a8258c81a6ba" FOREIGN KEY ("supplierId") REFERENCES "supplier"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "article" ADD CONSTRAINT "FK_357fa08ef2c105399118e54e681" FOREIGN KEY ("articleCategoryId") REFERENCES "article_category"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "article" ADD CONSTRAINT "FK_42329d8334797808ccea8690f19" FOREIGN KEY ("articleReferenceId") REFERENCES "article_reference"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "article" ADD CONSTRAINT "FK_a52b78cac6f59c28fd7305843e9" FOREIGN KEY ("languageId") REFERENCES "language"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;

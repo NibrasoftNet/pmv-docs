@@ -8,6 +8,7 @@ import { ManufacturerSeedService } from './manufacturer/manufacturer-seed.servic
 import { SupplierSeedService } from './supplier/supplier-seed.service.js';
 import { ArticleReferenceSeedService } from './article-reference/article-reference-seed.service.js';
 import { PmvModelSeedService } from './pmv-model/pmv-model-seed.service.js';
+import { PmvSubModelSeedService } from './pmv-sub-model/pmv-sub-model-seed.service.js';
 
 const seeders = {
   language: LanguageSeedService,
@@ -17,7 +18,8 @@ const seeders = {
   articleCategory: ArticleCategorySeedService,
   supplier: SupplierSeedService,
   articleReference: ArticleReferenceSeedService,
-  //pmvModel: PmvModelSeedService,
+  pmvModel: PmvModelSeedService,
+  pmvSubModel: PmvSubModelSeedService,
 };
 
 const runSeed = async () => {

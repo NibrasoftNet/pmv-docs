@@ -1,4 +1,4 @@
-import { CountryEntity } from '../../country/entites/country.entity.js';
+import { CountryEntity } from '../../country/entities/country.entity.js';
 import { Entity, Column, PrimaryColumn, Index, ManyToOne } from 'typeorm';
 import EntityHelper from '../../utils/entities/entity-helper.js';
 import { FileEntity } from '../../files/entities/file.entity.js';

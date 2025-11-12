@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
 //import { CountryFactory } from './country.factory.js';
-import { CountryEntity } from '../../../country/entites/country.entity.js';
+import { CountryEntity } from '../../../country/entities/country.entity.js';
 import * as fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';

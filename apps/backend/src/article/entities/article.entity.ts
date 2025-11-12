@@ -2,7 +2,7 @@ import EntityHelper from "../../utils/entities/entity-helper.js";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ArticleCategoryEntity } from "../../article-category/entities/article-category.entity.js";
 import { ArticleReferenceEntity } from "../../article-reference/entities/article-reference.entity.js";
-import { LanguageEntity } from "../../language/entites/language.entity.js";
+import { LanguageEntity } from "../../language/entities/language.entity.js";
 import { SupplierEntity } from "../../supplier/entities/supplier.entity.js";
 
 @Entity('article')

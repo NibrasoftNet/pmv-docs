@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { LanguageEntity } from '../../../language/entites/language.entity.js';
+import { LanguageEntity } from '../../../language/entities/language.entity.js';
 import { ArticleReferenceEntity } from '../../../article-reference/entities/article-reference.entity.js';
 import { enArticleReference } from './data/en-article-reference.js';
 

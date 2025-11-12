@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SupplierEntity } from '../../../supplier/entities/supplier.entity.js';
-import { CountryEntity } from '../../../country/entites/country.entity.js';
+import { CountryEntity } from '../../../country/entities/country.entity.js';
 import { enSuppliers } from './data/en-suppliers.js';
 
 @Injectable()

@@ -1,8 +1,8 @@
 import { Entity, Column, Index, PrimaryGeneratedColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import EntityHelper from '../../utils/entities/entity-helper.js';
-import { CountryEntity } from '../../country/entites/country.entity.js';
-import { PmvCategoryEntity } from '../../pmv-category/entities/pmv-category.entity.js';
+import { CountryEntity } from '../../country/entities/country.entity.js';
 import { FileEntity } from '../../files/entities/file.entity.js';
+import { LanguageEntity } from '../../language/entities/language.entity.js';
 
 @Entity('manufacturer')
 export class ManufacturerEntity extends EntityHelper {
@@ -15,21 +15,54 @@ export class ManufacturerEntity extends EntityHelper {
   @Column({ type: 'varchar', nullable: false })
   name: string;
 
-  @Column({ type: 'varchar', nullable: true })
-  description: string | null;
+  @Column({ type: Boolean, default: true })
+  isPassengerCar: boolean;
+
+  @Column({ type: Boolean, default: true })
+  isCommercialVehicle: boolean;
+
+  @Column({ type: Boolean, default: true })
+  isMotorbike: boolean;
+
+  @Column({ type: Boolean, default: true })
+  isLCV: boolean;
+
+  @Column({ type: Boolean, default: true })
+  isDriverCab: boolean;
+
+  @Column({ type: Boolean, default: true })
+  isAxle: boolean;
+
+  @Column({ type: Boolean, default: true })
+  isEngine: boolean;
+
+  @Column({ type: Boolean, default: true })
+  isBus: boolean;
+
+  @Column({ type: Boolean, default: true })
+  isAftermarket: boolean;
+
+  @Column({ type: Boolean, default: true })
+  isTractor: boolean;
+
+  @Column({ type: Boolean, default: true })
+  isVirtualOEM: boolean;
+
+  @Column({ type: Boolean, default: true })
+  active: boolean;
 
   @Column({ type: 'varchar', nullable: true })
   websiteURL: string | null;
 
-  @Column({ type: 'decimal', default: 0 })
-  modelsCount: number;
+  @Column({ type: 'varchar', nullable: true })
+  description: string | null;
 
   @ManyToOne(() => FileEntity, (file) => file.id, { nullable: true, eager: true })
   image: FileEntity | null;
 
-  @ManyToOne(() => PmvCategoryEntity, (pmvCategory) => pmvCategory.id, { onDelete: 'RESTRICT', nullable: false, eager: true })
-  pmvCategory: PmvCategoryEntity;
-
   @ManyToOne(() => CountryEntity, (country) => country.id, { onDelete: 'RESTRICT', nullable: false, eager: true })
   originCountry: CountryEntity;
+
+  @ManyToOne(() => LanguageEntity, (language) => language.id, { onDelete: 'CASCADE', nullable: false, eager: true })
+  language: LanguageEntity;
 }

@@ -7,7 +7,8 @@ import { ManufacturerSeedService } from './manufacturer/manufacturer-seed.servic
 import { ArticleCategorySeedService } from './article-category/article-category-seed.service.js';
 import { SupplierSeedService } from './supplier/supplier-seed.service.js';
 import { ArticleReferenceSeedService } from './article-reference/article-reference-seed.service.js';
-//import { PmvModelSeedService } from './pmv-model/pmv-model-seed.service.js';
+import { PmvModelSeedService } from './pmv-model/pmv-model-seed.service.js';
+import { PmvSubModelSeedService } from './pmv-sub-model/pmv-sub-model-seed.service.js';
 
 const runSeed = async () => {
   const app = await NestFactory.create(SeedModule);
@@ -23,7 +24,8 @@ const runSeed = async () => {
     await app.get(ArticleCategorySeedService).run();
     await app.get(SupplierSeedService).run();
     await app.get(ArticleReferenceSeedService).run();
-    //await app.get(PmvModelSeedService).run();
+    await app.get(PmvModelSeedService).run();
+    await app.get(PmvSubModelSeedService).run();
     console.log('All seed services have been run.');
   } else {
     // If an argument is provided, run the specific seed service
@@ -56,10 +58,14 @@ const runSeed = async () => {
         await app.get(ArticleReferenceSeedService).run();
         console.log('ArticleReferenceSeedService has been run.');
         break;
-      /*case 'pmv-model':
+      case 'pmv-model':
         await app.get(PmvModelSeedService).run();
         console.log('PmvModelSeedService has been run.');
-        break;*/
+        break;
+      case 'pmv-sub-model':
+        await app.get(PmvSubModelSeedService).run();
+        console.log('PmvSubModelSeedService has been run.');
+        break;
       default:
         console.log(
           'Please specify a valid seed service.',

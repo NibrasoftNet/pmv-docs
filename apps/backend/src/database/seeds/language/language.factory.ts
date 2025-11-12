@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { fakerFR } from '@faker-js/faker';
-import { LanguageEntity } from '../../../language/entites/language.entity.js';
+import { LanguageEntity } from '../../../language/entities/language.entity.js';
 
 @Injectable()
 export class LanguageFactory {

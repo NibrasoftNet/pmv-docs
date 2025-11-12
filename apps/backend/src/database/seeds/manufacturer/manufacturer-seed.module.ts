@@ -3,9 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { ManufacturerSeedService } from './manufacturer-seed.service.js';
 import { ManufacturerEntity } from '../../../manufacturer/entities/manufacturer.entity.js';
+import { LanguageEntity } from '../../../language/entities/language.entity.js';
+import { CountryEntity } from '../../../country/entities/country.entity.js';
+
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ManufacturerEntity])],
+  imports: [TypeOrmModule.forFeature([ManufacturerEntity, LanguageEntity, CountryEntity])],
   providers: [ManufacturerSeedService],
   exports: [ManufacturerSeedService],
 })

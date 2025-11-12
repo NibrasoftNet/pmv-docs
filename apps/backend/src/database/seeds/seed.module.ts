@@ -16,7 +16,8 @@ import { ArticleCategorySeedModule } from './article-category/article-category-s
 import { SupplierSeedModule } from './supplier/supplier-seed.module.js';
 import { ArticleReferenceSeedModule } from './article-reference/article-reference-seed.module.js';
 import { ArticleSeedModule } from './article/article-seed.module.js';
-//import { PmvModelSeedModule } from './pmv-model/pmv-model-seed.module.js';
+import { PmvModelSeedModule } from './pmv-model/pmv-model-seed.module.js';
+import { PmvSubModelSeedModule } from './pmv-sub-model/pmv-sub-model-seed.module.js';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { ArticleSeedModule } from './article/article-seed.module.js';
     SupplierSeedModule,
     ArticleReferenceSeedModule,
     ArticleSeedModule,
-    //PmvModelSeedModule,
+    PmvModelSeedModule,
+    PmvSubModelSeedModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [databaseConfig, appConfig],

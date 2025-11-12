@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ArticleCategoryEntity } from '../../../article-category/entities/article-category.entity.js';
-import { LanguageEntity } from '../../../language/entites/language.entity.js';
+import { LanguageEntity } from '../../../language/entities/language.entity.js';
 import { enArticleCategory } from './data/en-article-category.js';
 
 @Injectable()

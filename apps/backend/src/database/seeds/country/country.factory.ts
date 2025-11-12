@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { fakerFR } from '@faker-js/faker';
-import { CountryEntity } from '../../../country/entites/country.entity.js';
+import { CountryEntity } from '../../../country/entities/country.entity.js';
 
 @Injectable()
 export class CountryFactory {

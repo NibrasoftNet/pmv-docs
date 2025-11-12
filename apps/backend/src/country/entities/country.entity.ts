@@ -1,4 +1,4 @@
-import { LanguageEntity } from '../../language/entites/language.entity.js';
+import { LanguageEntity } from '../../language/entities/language.entity.js';
 import EntityHelper from '../../utils/entities/entity-helper.js';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 

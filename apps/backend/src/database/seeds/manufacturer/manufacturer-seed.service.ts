@@ -1,169 +1,86 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-
 import { Repository } from 'typeorm';
 import { ManufacturerEntity } from '../../../manufacturer/entities/manufacturer.entity.js';
-import { automobileManufacturer } from './manufacturer-types/1-manufacturers-automobile.js';
-import { commercialManufacturer } from './manufacturer-types/2-manufacturer-commercial.js';
-import { lcvManufacturer } from './manufacturer-types/4-manufacturer-lcv.js';
-import { driverCabManufacturer } from './manufacturer-types/5-manufacturer-driver-cab.js';
-import { axleManufacturer } from './manufacturer-types/6-manufacturer-axle.js';
-import { engineManufacturer } from './manufacturer-types/7-manfacturer-engine.js';
-import { busManufacturer } from './manufacturer-types/8-manufacturer-bus.js';
-import { tractorManufacturer } from './manufacturer-types/10-manufacturer-tractor.js';
-import { PMVCategoryEnum } from '../../../pmv-category/pmv-category.enum.js';
-import { motoManufacturer } from './manufacturer-types/3-manufacturer-moto.js';
+import * as fs from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import { LanguageEntity } from '../../../language/entities/language.entity.js';
+import { CountryEntity } from '../../../country/entities/country.entity.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 @Injectable()
 export class ManufacturerSeedService {
   constructor(
     @InjectRepository(ManufacturerEntity)
     private repository: Repository<ManufacturerEntity>,
+    @InjectRepository(LanguageEntity)
+    private languageRepository: Repository<LanguageEntity>,
+    @InjectRepository(CountryEntity)
+    private countryRepository: Repository<CountryEntity>,
   ) {}
 
   async run() {
-    const automobileCount = await this.repository.count({ where: { pmvCategory: { id: 1 } } });
-
-    if (automobileCount === 0) {
-      const automobiles = automobileManufacturer.manufacturers.map(entry => ({
-        manufacturerId: entry.manufacturerId,
-        name: entry.manufacturerName,
-        description: entry.manufacturerName,
-        websiteURL: 'https://www.pmv-docs.nibrasoft.com',
-        pmvCategory: { id: 1 },
-        originCountry: { id: 276 },
-      }));
-      await this.repository.save(
-        automobiles.map(manufacturer => this.repository.create(manufacturer)),
-      );
-    }
-
-    const commercialCount = await this.repository.count({ where: { pmvCategory: { id: 2 } } });
-
-    if (commercialCount === 0) {
-      const commercials = commercialManufacturer.manufacturers.map(entry => ({
-        manufacturerId: entry.manufacturerId,
-        name: entry.manufacturerName,
-        description: entry.manufacturerName,
-        websiteURL: 'https://www.pmv-docs.nibrasoft.com',
-        pmvCategory: { id: 2 },
-        originCountry: { id: 276 },
-      }));
-      await this.repository.save(
-        commercials.map(manufacturer => this.repository.create(manufacturer)),
-      );
-    }
-
-    const motoCount = await this.repository.count({ where: { pmvCategory: { id: 3 } } });
-
-    if (motoCount === 0) {
-      const motos = motoManufacturer.manufacturers.map(entry => ({
-        manufacturerId: entry.manufacturerId,
-        name: entry.manufacturerName,
-        description: entry.manufacturerName,
-        websiteURL: 'https://www.pmv-docs.nibrasoft.com',
-        pmvCategory: { id: 3 },
-        originCountry: { id: 276 },
-      }));
-      await this.repository.save(
-        motos.map(manufacturer => this.repository.create(manufacturer)),
-      );
-    }
-
-    const lcvCount = await this.repository.count({ where: { pmvCategory: { id: 4 } } });
-
-    if (lcvCount === 0) {
-      const lcvs = lcvManufacturer.manufacturers.map(entry => ({
-        manufacturerId: entry.manufacturerId,
-        name: entry.manufacturerName,
-        description: entry.manufacturerName,
-        websiteURL: 'https://www.pmv-docs.nibrasoft.com',
-        pmvCategory: { id: 4 },
-        originCountry: { id: 276 },
-      }));
-      await this.repository.save(
-        lcvs.map(manufacturer => this.repository.create(manufacturer)),
-      );
-    }
-
-    const driverCount = await this.repository.count({ where: { pmvCategory: { id: 5 } } });
-
-    if (driverCount === 0) {
-      const drivers = driverCabManufacturer.manufacturers.map(entry => ({
-        manufacturerId: entry.manufacturerId,
-        name: entry.manufacturerName,
-        description: entry.manufacturerName,
-        websiteURL: 'https://www.pmv-docs.nibrasoft.com',
-        pmvCategory: { id: 5 },
-        originCountry: { id: 276 },
-      }));
-      await this.repository.save(
-        drivers.map(manufacturer => this.repository.create(manufacturer)),
-      );
-    }
-
-    const axleCount = await this.repository.count({ where: { pmvCategory: { id: 6 } } });
-
-    if (axleCount === 0) {
-      const axles = axleManufacturer.manufacturers.map(entry => ({
-        manufacturerId: entry.manufacturerId,
-        name: entry.manufacturerName,
-        description: entry.manufacturerName,
-        websiteURL: 'https://www.pmv-docs.nibrasoft.com',
-        pmvCategory: { id: 6 },
-        originCountry: { id: 276 },
-      }));
-      await this.repository.save(
-        axles.map(manufacturer => this.repository.create(manufacturer)),
-      );
-    }
-
-    const engineCount = await this.repository.count({ where: { pmvCategory: { id: 7 } } });
-
-    if (engineCount === 0) {
-      const engines = engineManufacturer.manufacturers.map(entry => ({
-        manufacturerId: entry.manufacturerId,
-        name: entry.manufacturerName,
-        description: entry.manufacturerName,
-        websiteURL: 'https://www.pmv-docs.nibrasoft.com',
-        pmvCategory: { id: 7 },
-        originCountry: { id: 276 },
-      }));
-      await this.repository.save(
-        engines.map(manufacturer => this.repository.create(manufacturer)),
-      );
-    }
-
-    const busCount = await this.repository.count({ where: { pmvCategory: { id: 8 } } });
-
-    if (busCount === 0) {
-      const buses = busManufacturer.manufacturers.map(entry => ({
-        manufacturerId: entry.manufacturerId,
-        name: entry.manufacturerName,
-        description: entry.manufacturerName,
-        websiteURL: 'https://www.pmv-docs.nibrasoft.com',
-        pmvCategory: { id: 8 },
-        originCountry: { id: 276 },
-      }));
-      await this.repository.save(
-        buses.map(manufacturer => this.repository.create(manufacturer)),
-      );
-    }
-
-    const tractorCount = await this.repository.count({ where: { pmvCategory: { id: 10 } } });
-
-    if (tractorCount === 0) {
-      const tractors = tractorManufacturer.manufacturers.map(entry => ({
-        manufacturerId: entry.manufacturerId,
-        name: entry.manufacturerName,
-        description: entry.manufacturerName,
-        websiteURL: 'https://www.pmv-docs.nibrasoft.com',
-        pmvCategory: { id: 10 },
-        originCountry: { id: 276 },
-      }));
-      await this.repository.save(
-        tractors.map(manufacturer => this.repository.create(manufacturer)),
-      );
+    try {
+      const manufacturerCount = await this.repository.count();
+      const language = await this.languageRepository.findOneOrFail({ where: { id: 1 } });
+    
+      const country = await this.countryRepository.findOneOrFail({ where: { id: 276 } });
+      if (manufacturerCount === 0) {
+        const csvPath = join(__dirname, 'data', 'new-manufacturers.csv');
+        const csv = fs.readFileSync(csvPath, 'utf-8');
+        const lines = csv.split('\n').slice(1).filter((line) => line.trim()); // skip header if any        
+        const manufacturers = lines.map((entry, index) => {
+          try {
+            const parts = entry.split(',').map(p => p.replace(/\r/g, '').trim());
+            if (parts.length !== 14) {
+              console.error(`Line ${index + 2}: Invalid number of parts ${parts.length}, entry: ${entry}`);
+              throw new Error(`Invalid CSV format at line ${index + 2}`);
+            }
+            const manufacturerId = parseInt(parts[0] as string, 10);
+            if (isNaN(manufacturerId)) {
+              console.error(`Line ${index + 2}: Invalid manufacturerId ${parts[3]}`);
+              throw new Error(`Invalid manufacturerId at line ${index + 2}`);
+            }
+            
+            return {
+              manufacturerId,
+              name: parts[1],
+              isPassengerCar: parts[2] === '1',
+              isCommercialVehicle: parts[3] === '1',
+              isMotorbike: parts[4] === '1',
+              isLCV: parts[5] === '1',
+              isDriverCab: parts[6] === '1',
+              isAxle: parts[7] === '1',
+              isEngine: parts[8] === '1',
+              isBus: parts[9] === '1',
+              isAftermarket: parts[10] === '1',
+              isTractor: parts[11] === '1',
+              isVirtualOEM: parts[12] === '1',
+              active: true,
+              websiteURL: 'https://www.pmv-docs.nibrasoft.com',
+              description: parts[13],
+              originCountry: country,
+              language: language,
+            };
+          } catch (e) {
+            console.error(`Error parsing line ${index + 2}: ${entry}`, e);
+            throw e;
+          }
+        });
+        const batchSize = 100;
+        for (let i = 0; i < manufacturers.length; i += batchSize) {
+          const batch = manufacturers.slice(i, i + batchSize);
+          await this.repository.save(
+            batch.map(manufacturer => this.repository.create(manufacturer)),
+          );
+        }
+      }
+    } catch (error) {
+      console.error('Error in ManufacturerSeedService.run:', error);
+      throw error;
     }
   }
 }

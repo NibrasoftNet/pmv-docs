@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
-import { CountryEntity } from "../../country/entites/country.entity.js";
+import { CountryEntity } from "../../country/entities/country.entity.js";
 import EntityHelper from "../../utils/entities/entity-helper.js"
 
 @Entity("address")

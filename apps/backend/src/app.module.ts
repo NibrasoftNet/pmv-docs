@@ -37,6 +37,7 @@ import { SupplierModule } from './supplier/supplier.module.js';
 import { ArticleReferenceModule } from './article-reference/article-reference.module.js';
 import { ArticleModule } from './article/article.module.js';
 import { PmvModelModule } from './pmv-model/pmv-model.module.js';
+import { PmvSubModelModule } from './pmv-sub-model/pmv-sub-model.module';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -108,7 +109,8 @@ const __dirname = path.dirname(__filename);
     SupplierModule,
     ArticleReferenceModule,
     ArticleModule,
-    PmvModelModule
+    PmvModelModule,
+    PmvSubModelModule
   ],
   controllers: [],
   providers: [

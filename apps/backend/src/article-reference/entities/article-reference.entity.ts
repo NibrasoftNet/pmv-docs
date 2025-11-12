@@ -6,7 +6,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { ArticleReferenceEnum } from '@workspace/orpc';
-import { LanguageEntity } from '../../language/entites/language.entity.js';
+import { LanguageEntity } from '../../language/entities/language.entity.js';
 
 @Entity('article_reference')
 export class ArticleReferenceEntity extends EntityHelper {

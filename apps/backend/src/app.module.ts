@@ -18,7 +18,7 @@ import { ZodValidationPipe, ZodSerializerInterceptor } from 'nestjs-zod';
 import { HttpExceptionFilter } from './utils/filters/http-exception.filter.js';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 // SHARED MODULES
-import { MinioModule } from './utils/minio/minio.module.js';
+import { MinioModule } from './utils/minio/index.js';
 import { MulterConfigModule } from './shared/multer-config.module.js';
 import { HeaderResolver, I18nModule } from 'nestjs-i18n';
 import { auth } from './auth.js';
@@ -37,7 +37,9 @@ import { SupplierModule } from './supplier/supplier.module.js';
 import { ArticleReferenceModule } from './article-reference/article-reference.module.js';
 import { ArticleModule } from './article/article.module.js';
 import { PmvModelModule } from './pmv-model/pmv-model.module.js';
-import { PmvSubModelModule } from './pmv-sub-model/pmv-sub-model.module';
+import { PmvSubModelModule } from './pmv-sub-model/pmv-sub-model.module.js';
+import { EngineModule } from './engine/engine.module.js';
+import { SubModelJoinEngineModule } from './sub-model-join-engine/sub-model-join-engine.module.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -65,7 +67,7 @@ const __dirname = path.dirname(__filename);
     }),
     ORPCModule.forRootAsync({
       useFactory: () => ({
-        context: (req: any, res: any) => ({
+        context: (req: Request, res: Response) => ({
           request: req,
           response: res,
         }),
@@ -110,7 +112,9 @@ const __dirname = path.dirname(__filename);
     ArticleReferenceModule,
     ArticleModule,
     PmvModelModule,
-    PmvSubModelModule
+    PmvSubModelModule,
+    EngineModule,
+    SubModelJoinEngineModule
   ],
   controllers: [],
   providers: [

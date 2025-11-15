@@ -18,7 +18,8 @@ import { ArticleReferenceSeedModule } from './article-reference/article-referenc
 import { ArticleSeedModule } from './article/article-seed.module.js';
 import { PmvModelSeedModule } from './pmv-model/pmv-model-seed.module.js';
 import { PmvSubModelSeedModule } from './pmv-sub-model/pmv-sub-model-seed.module.js';
-
+import { EngineSeedModule } from './engine/engine-seed.module.js';
+import { SubModelJoinEngineSeedModule } from './sub-model-join-engine/sub-model-join-engine-seed.module.js';
 @Module({
   imports: [
     LanguageSeedModule,
@@ -31,6 +32,8 @@ import { PmvSubModelSeedModule } from './pmv-sub-model/pmv-sub-model-seed.module
     ArticleSeedModule,
     PmvModelSeedModule,
     PmvSubModelSeedModule,
+    EngineSeedModule,
+    SubModelJoinEngineSeedModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [databaseConfig, appConfig],

@@ -8,7 +8,12 @@ import { ManufacturerSeedService } from './manufacturer/manufacturer-seed.servic
 import { SupplierSeedService } from './supplier/supplier-seed.service.js';
 import { ArticleReferenceSeedService } from './article-reference/article-reference-seed.service.js';
 import { PmvModelSeedService } from './pmv-model/pmv-model-seed.service.js';
-import { PmvSubModelSeedService } from './pmv-sub-model/pmv-sub-model-seed.service.js';
+import { PmvSubModelAutoSeedService } from './pmv-sub-model/pmv-sub-model-auto-seed.service.js';
+import { PmvSubModelComSeedService } from './pmv-sub-model/pmv-sub-model-com-seed.service.js';
+import { PmvSubModelMotoSeedService } from './pmv-sub-model/pmv-sub-model-moto-seed.service.js';
+import { EngineSeedService } from './engine/engine-seed.service.js';
+import { AutoSubModelJoinEngineSeedService } from './sub-model-join-engine/auto-sub-model-join-engine-seed.service.js';
+import { ComSubModelJoinEngineSeedService } from './sub-model-join-engine/com-sub-model-join-engine-seed.service.js';
 
 const seeders = {
   language: LanguageSeedService,
@@ -19,7 +24,12 @@ const seeders = {
   supplier: SupplierSeedService,
   articleReference: ArticleReferenceSeedService,
   pmvModel: PmvModelSeedService,
-  pmvSubModel: PmvSubModelSeedService,
+  pmvSubModelAuto: PmvSubModelAutoSeedService,
+  pmvSubModelCom: PmvSubModelComSeedService,
+  pmvSubModelMoto: PmvSubModelMotoSeedService,
+  engine: EngineSeedService,
+  subModelJoinEngine: AutoSubModelJoinEngineSeedService,
+  comSubModelJoinEngine: ComSubModelJoinEngineSeedService,
 };
 
 const runSeed = async () => {

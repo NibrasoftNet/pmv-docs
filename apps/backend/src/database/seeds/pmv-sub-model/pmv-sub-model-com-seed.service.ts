@@ -13,7 +13,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 @Injectable()
-export class PmvSubModelSeedService {
+export class PmvSubModelComSeedService {
   constructor(
     @InjectRepository(PmvSubModelEntity)
     private repository: Repository<PmvSubModelEntity>,
@@ -25,9 +25,9 @@ export class PmvSubModelSeedService {
 
   async run() {
     try {
-      const modelCount = await this.repository.count();
+      const modelCount = await this.repository.count({ where: { pmvCategory: { id: 2 } } });
       if (modelCount === 0) {
-        const csvPath = join(__dirname, 'data', 'new-sub-model-auto.csv');
+        const csvPath = join(__dirname, 'data', 'new-sub-model-com.csv');
         const csv = fs.readFileSync(csvPath, 'utf-8');
         const lines = csv.split('\n').slice(1).filter((line) => line.trim()); // skip header if any
         const batchSize = 100;
@@ -76,7 +76,7 @@ export class PmvSubModelSeedService {
         }
       }
     } catch (error) {
-      console.error('Error in PmvModelSeedService.run:', error);
+      console.error('Error in PmvModelSeedComService.run:', error);
       throw error;
     }
   }

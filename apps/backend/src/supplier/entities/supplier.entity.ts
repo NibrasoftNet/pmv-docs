@@ -1,7 +1,7 @@
-import { CountryEntity } from '../../country/entities/country.entity.js';
-import { Entity, Column, PrimaryColumn, Index, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToOne } from 'typeorm';
 import EntityHelper from '../../utils/entities/entity-helper.js';
 import { FileEntity } from '../../files/entities/file.entity.js';
+import { AddressEntity } from '../../address/entities/address.entity.js';
 
 @Entity('supplier')
 export class SupplierEntity extends EntityHelper {
@@ -23,8 +23,8 @@ export class SupplierEntity extends EntityHelper {
   @Column({ type: 'int', default: 0 })
   articlesCount: number;
 
-  @ManyToOne(() => CountryEntity, (country) => country.id, { onDelete: 'RESTRICT', nullable: false, eager: true })
-  originCountry: CountryEntity;
+  @ManyToOne(() => AddressEntity, (address) => address.id, { onDelete: 'RESTRICT', nullable: false, eager: true })
+  address: AddressEntity;
 
   @ManyToOne(() => FileEntity, (file) => file.id, { onDelete: 'SET NULL', nullable: true, eager: true })
   image: FileEntity | null;

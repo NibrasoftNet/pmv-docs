@@ -35,11 +35,16 @@ import { ArticleCategoryModule } from './article-category/article-category.modul
 import { AddressModule } from './address/address.module.js';
 import { SupplierModule } from './supplier/supplier.module.js';
 import { ArticleReferenceModule } from './article-reference/article-reference.module.js';
-import { ArticleModule } from './article/article.module.js';
+import { IamReferenceModule } from './articles/iam-reference/iam-reference.module.js';
 import { PmvModelModule } from './pmv-model/pmv-model.module.js';
 import { PmvSubModelModule } from './pmv-sub-model/pmv-sub-model.module.js';
 import { EngineModule } from './engine/engine.module.js';
 import { SubModelJoinEngineModule } from './sub-model-join-engine/sub-model-join-engine.module.js';
+import { OemReferenceModule } from './articles/oem-reference/oem-reference.module.js';
+import { EanReferenceModule } from './articles/ean-reference/ean-reference.module.js';
+import { IamJoinOemModule } from './articles-join/iam-join-oem/iam-join-oem.module.js';
+import { IamJoinEanModule } from './articles-join/iam-join-ean/iam-join-ean.module.js';
+import { IamJoinSubModelModule } from './articles-join/iam-join-sub-model/iam-join-sub-model.module.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -110,11 +115,16 @@ const __dirname = path.dirname(__filename);
     AddressModule,
     SupplierModule,
     ArticleReferenceModule,
-    ArticleModule,
+    IamReferenceModule,
     PmvModelModule,
     PmvSubModelModule,
     EngineModule,
-    SubModelJoinEngineModule
+    SubModelJoinEngineModule,
+    OemReferenceModule,
+    EanReferenceModule,
+    IamJoinOemModule,
+    IamJoinEanModule,
+    IamJoinSubModelModule
   ],
   controllers: [],
   providers: [

@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ArticleService } from './article.service.js';
-import { CreateArticleDto } from './dto/create-article.dto.js';
-import { UpdateArticleDto } from './dto/update-article.dto.js';
+import { ArticleService } from './iam-reference.service.js';
+import { CreateArticleDto } from './dto/create-iam-reference.dto.js';
+import { UpdateArticleDto } from './dto/update-iam-reference.dto.js';
 
 @Controller('article')
-export class ArticleController {
+export class IamReferenceController {
   constructor(private readonly articleService: ArticleService) {}
 
   @Post()

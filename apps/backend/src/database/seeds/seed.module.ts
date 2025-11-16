@@ -15,7 +15,7 @@ import { ManufacturerSeedModule } from './manufacturer/manufacturer-seed.module.
 import { ArticleCategorySeedModule } from './article-category/article-category-seed.module.js';
 import { SupplierSeedModule } from './supplier/supplier-seed.module.js';
 import { ArticleReferenceSeedModule } from './article-reference/article-reference-seed.module.js';
-import { ArticleSeedModule } from './article/article-seed.module.js';
+import { IamReferenceSeedModule } from './iam-reference/iam-reference-seed.module.js';
 import { PmvModelSeedModule } from './pmv-model/pmv-model-seed.module.js';
 import { PmvSubModelSeedModule } from './pmv-sub-model/pmv-sub-model-seed.module.js';
 import { EngineSeedModule } from './engine/engine-seed.module.js';
@@ -29,7 +29,7 @@ import { SubModelJoinEngineSeedModule } from './sub-model-join-engine/sub-model-
     ArticleCategorySeedModule,
     SupplierSeedModule,
     ArticleReferenceSeedModule,
-    ArticleSeedModule,
+    IamReferenceSeedModule,
     PmvModelSeedModule,
     PmvSubModelSeedModule,
     EngineSeedModule,

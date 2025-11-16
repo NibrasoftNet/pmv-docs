@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateArticleDto } from './dto/create-article.dto';
-import { UpdateArticleDto } from './dto/update-article.dto';
+import { CreateArticleDto } from './dto/create-iam-reference.dto.js';
+import { UpdateArticleDto } from './dto/update-iam-reference.dto.js';
 
 @Injectable()
 export class ArticleService {

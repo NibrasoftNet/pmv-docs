@@ -20,6 +20,9 @@ export class FileEntity extends EntityHelper {
   @Column()
   mimeType: string;
 
+  @Column()
+  type: string;
+
   @AfterLoad()
   @AfterInsert()
   updatePath() {

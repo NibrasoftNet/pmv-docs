@@ -1,3 +1,0 @@
-CREATE TABLE "pmv_model" ("created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, "id" integer NOT NULL, "startYear" date NOT NULL, "endYear" date NOT NULL, "name" character varying NOT NULL, "manufacturerId" integer NOT NULL, "pmvTypeId" integer NOT NULL, CONSTRAINT "PK_69db3e669849352596f92039a06" PRIMARY KEY ("id"));
-ALTER TABLE "pmv_model" ADD CONSTRAINT "FK_a582fc767316bd6928e0d49cd72" FOREIGN KEY ("manufacturerId") REFERENCES "manufacturer"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "pmv_model" ADD CONSTRAINT "FK_494564f3fba3da5c6aa4697ff72" FOREIGN KEY ("pmvTypeId") REFERENCES "pmv_category"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;

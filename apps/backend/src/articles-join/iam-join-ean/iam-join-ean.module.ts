@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { IamJoinEanService } from './iam-join-ean.service';
-import { IamJoinEanController } from './iam-join-ean.controller';
+import { IamJoinEanService } from './iam-join-ean.service.js';
+import { IamJoinEanController } from './iam-join-ean.controller.js';
 
 @Module({
   controllers: [IamJoinEanController],

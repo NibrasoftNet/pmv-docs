@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { LanguageEntity } from '../../../language/entities/language.entity.js';
 import { CountryEntity } from '../../../country/entities/country.entity.js';
+import { FileEntity } from '../../../files/entities/file.entity.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -20,6 +21,8 @@ export class ManufacturerSeedService {
     private languageRepository: Repository<LanguageEntity>,
     @InjectRepository(CountryEntity)
     private countryRepository: Repository<CountryEntity>,
+    @InjectRepository(FileEntity)
+    private fileRepository: Repository<FileEntity>,
   ) {}
 
   async run() {
@@ -27,12 +30,12 @@ export class ManufacturerSeedService {
       const manufacturerCount = await this.repository.count();
       const language = await this.languageRepository.findOneOrFail({ where: { id: 1 } });
     
-      const country = await this.countryRepository.findOneOrFail({ where: { id: 276 } });
+      const country = await this.countryRepository.findOneOrFail({ where: { isoCodeNo: 276 } });
       if (manufacturerCount === 0) {
         const csvPath = join(__dirname, 'data', 'new-manufacturers.csv');
         const csv = fs.readFileSync(csvPath, 'utf-8');
         const lines = csv.split('\n').slice(1).filter((line) => line.trim()); // skip header if any        
-        const manufacturers = lines.map((entry, index) => {
+        const manufacturers = await Promise.all(lines.map(async (entry, index) => {
           try {
             const parts = entry.split(',').map(p => p.replace(/\r/g, '').trim());
             if (parts.length !== 14) {
@@ -44,7 +47,30 @@ export class ManufacturerSeedService {
               console.error(`Line ${index + 2}: Invalid manufacturerId ${parts[3]}`);
               throw new Error(`Invalid manufacturerId at line ${index + 2}`);
             }
-            
+            const fileName = parts[13] ? parts[13]
+              ?.toUpperCase()
+              .replace(/\s+/g, '-') : null;
+
+            let image: FileEntity | null = null;
+            if (fileName) {
+              const path = `https://minio-api.nibrasoft.com/turbo-car-bucket/manufacturers/${fileName}.png`;
+              // Check if file path already exists
+              const existingFile = await this.fileRepository.findOne({
+                where: { path },
+              });
+              if (existingFile) {
+                image = existingFile; // return the existing record
+              } else {
+                // Create new file record
+                image = await this.fileRepository.save(
+                  this.fileRepository.create({
+                    path,
+                    mimeType: 'image/png',
+                    type: 'manufacturer',
+                  })
+                );
+              }
+            }
             return {
               manufacturerId,
               name: parts[1],
@@ -64,12 +90,13 @@ export class ManufacturerSeedService {
               description: parts[13],
               originCountry: country,
               language: language,
+              image
             };
           } catch (e) {
             console.error(`Error parsing line ${index + 2}: ${entry}`, e);
             throw e;
           }
-        });
+        }));
         const batchSize = 100;
         for (let i = 0; i < manufacturers.length; i += batchSize) {
           const batch = manufacturers.slice(i, i + batchSize);

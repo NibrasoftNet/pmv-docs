@@ -51,7 +51,7 @@ export class ArticleSeedService {
         throw new Error(`ArticleReference with code ${item.articleReferenceCode} not found`);
       }
 
-      const entity = this.articleRepository.create({
+      /*const entity = this.articleRepository.create({
         name: item.name,
         description: item.description,
         specifications: item.specifications,
@@ -62,7 +62,7 @@ export class ArticleSeedService {
         language,
       });
 
-      entities.push(entity);
+      entities.push(entity);*/
     }
 
     return entities;

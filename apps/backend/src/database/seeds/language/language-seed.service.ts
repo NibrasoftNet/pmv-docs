@@ -19,9 +19,9 @@ export class LanguageSeedService {
 
   async run() {
     const count = await this.repository.count();
-
     if (count === 0) {
-      const csvPath = join(__dirname, 'languages.csv');
+      console.log("start seed language..."); 
+      const csvPath = join(__dirname, './data/languages.csv');
       const csv = fs.readFileSync(csvPath, 'utf-8');
       const lines = csv.split('\n').slice(1).filter(line => line.trim()); // skip header
       const languages = lines.map(line => {

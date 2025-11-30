@@ -1,6 +1,28 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["@workspace/ui"],
-}
+  transpilePackages: ['@workspace/ui'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'minio-api.nibrasoft.com',
+      },
+      {
+        protocol: 'http',
+        hostname: '147.79.117.125',
+        port: '4010',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '4010',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets.aceternity.com',
+      },
+    ],
+  },
+};
 
-export default nextConfig
+export default nextConfig;

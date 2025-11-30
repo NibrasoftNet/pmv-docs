@@ -26,8 +26,12 @@ export class CountryEntity extends EntityHelper {
   isoCodeNo: number;
 
   @Column({ type: 'text', nullable: true })
-  Description: string;
+  description: string;
 
-  @ManyToOne(() => LanguageEntity, (language) => language.id, { onDelete: 'CASCADE', nullable: false, eager: true })
+  @ManyToOne(() => LanguageEntity, language => language.id, {
+    onDelete: 'CASCADE',
+    nullable: false,
+    eager: true,
+  })
   language: LanguageEntity;
 }

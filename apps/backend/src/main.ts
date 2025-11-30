@@ -15,7 +15,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService<AllConfigType>);
   // Enable CORS for frontend access
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: process.env.FRONTEND_URL || 'http://localhost:4010',
     credentials: true,
   });
 
@@ -56,13 +56,22 @@ async function bootstrap() {
 
   // Automatically configure file upload endpoints using @FileUpload decorator metadata
   // No need to hardcode routes - they are detected automatically!
-  const allowedFileTypes = 'jpg, jpeg, png, avif, webp, pdf, xlsx, xls, docx, doc, pptx, ppt';
-  const allowedMimeTypes = 'image/png, image/jpeg, image/jpg, image/avif, image/webp, application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.ms-powerpoint';
+  const allowedFileTypes =
+    'jpg, jpeg, png, avif, webp, pdf, xlsx, xls, docx, doc, pptx, ppt';
+  const allowedMimeTypes =
+    'image/png, image/jpeg, image/jpg, image/avif, image/webp, application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.ms-powerpoint';
 
   // Scan all routes decorated with @FileUpload and configure them automatically
-  const { scanFileUploadRoutes, configureFileUploadOpenAPI } = await import('./utils/open-api/openapi-file-upload.util.js');
+  const { scanFileUploadRoutes, configureFileUploadOpenAPI } = await import(
+    './utils/open-api/openapi-file-upload.util.js'
+  );
   const fileUploadRoutes = scanFileUploadRoutes(app);
-  configureFileUploadOpenAPI(openAPISpec, fileUploadRoutes, allowedFileTypes, allowedMimeTypes);
+  configureFileUploadOpenAPI(
+    openAPISpec,
+    fileUploadRoutes,
+    allowedFileTypes,
+    allowedMimeTypes,
+  );
 
   // Serve OpenAPI spec at /api/spec.json
   app.use('/api/spec.json', (req, res) => {
@@ -80,11 +89,15 @@ async function bootstrap() {
     }),
   );
 
-  const port = configService.getOrThrow<AppConfig>('app', { infer: true }).port ?? 5010;
+  const port =
+    configService.getOrThrow<AppConfig>('app', { infer: true }).port ?? 5010;
   await app.listen(port);
   console.log(`🚀 Backend server running on http://localhost:${port}`);
-  console.log(`📚 API Documentation available at http://localhost:${port}/api-docs`);
-  console.log(`📄 OpenAPI Spec available at http://localhost:${port}/api/spec.json`);
+  console.log(
+    `📚 API Documentation available at http://localhost:${port}/api-docs`,
+  );
+  console.log(
+    `📄 OpenAPI Spec available at http://localhost:${port}/api/spec.json`,
+  );
 }
 bootstrap();
-

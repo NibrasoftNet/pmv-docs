@@ -18,7 +18,7 @@ import { ZodValidationPipe, ZodSerializerInterceptor } from 'nestjs-zod';
 import { HttpExceptionFilter } from './utils/filters/http-exception.filter.js';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 // SHARED MODULES
-import { MinioModule } from './utils/minio/index.js';
+import { MinioModule } from './utils/minio/minio.module.js';
 import { MulterConfigModule } from './shared/multer-config.module.js';
 import { HeaderResolver, I18nModule } from 'nestjs-i18n';
 import { auth } from './auth.js';
@@ -53,22 +53,17 @@ const __dirname = path.dirname(__filename);
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [
-        databaseConfig,
-        fileConfig,
-        appConfig,
-        mailConfig
-      ],
+      load: [databaseConfig, fileConfig, appConfig, mailConfig],
       envFilePath: ['.env.local'],
     }),
     TypeOrmModule.forRootAsync({
-       useClass: TypeOrmConfigService,
-       dataSourceFactory: async (options?: DataSourceOptions) => {
-         if (!options) {
-           throw new Error('DataSource options are required');
-         }
-         return new DataSource(options).initialize();
-       },
+      useClass: TypeOrmConfigService,
+      dataSourceFactory: async (options?: DataSourceOptions) => {
+        if (!options) {
+          throw new Error('DataSource options are required');
+        }
+        return new DataSource(options).initialize();
+      },
     }),
     ORPCModule.forRootAsync({
       useFactory: () => ({
@@ -124,11 +119,11 @@ const __dirname = path.dirname(__filename);
     EanReferenceModule,
     IamJoinOemModule,
     IamJoinEanModule,
-    IamJoinSubModelModule
+    IamJoinSubModelModule,
   ],
   controllers: [],
   providers: [
-        {
+    {
       provide: APP_PIPE,
       useClass: ZodValidationPipe,
     },

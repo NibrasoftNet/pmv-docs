@@ -13,7 +13,7 @@ export class SupplierEntity extends EntityHelper {
 
   @Column()
   matchCode: string;
-  
+
   @Column({ type: 'text', nullable: true })
   description: string | null;
 
@@ -23,9 +23,17 @@ export class SupplierEntity extends EntityHelper {
   @Column({ type: 'int', default: 0 })
   articlesCount: number;
 
-  @ManyToOne(() => AddressEntity, (address) => address.id, { onDelete: 'RESTRICT', nullable: false, eager: true })
+  @ManyToOne(() => AddressEntity, address => address.id, {
+    onDelete: 'RESTRICT',
+    nullable: true,
+    eager: true,
+  })
   address: AddressEntity;
 
-  @ManyToOne(() => FileEntity, (file) => file.id, { onDelete: 'SET NULL', nullable: true, eager: true })
+  @ManyToOne(() => FileEntity, file => file.id, {
+    onDelete: 'SET NULL',
+    nullable: true,
+    eager: true,
+  })
   image: FileEntity | null;
 }

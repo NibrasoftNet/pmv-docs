@@ -23,7 +23,8 @@ export default class EntityHelper extends BaseEntity {
 
   @DeleteDateColumn({
     name: 'deleted_at',
-    type: 'timestamp'
+    type: 'timestamp',
+    nullable: true,
   })
   deletedAt: Date;
 }

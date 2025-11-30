@@ -2,6 +2,7 @@ import { oc } from '@orpc/contract';
 import { todoContract } from './contracts/todo.contract.js';
 import { fileContract } from './contracts/file.contract.js';
 import { mailContract } from './contracts/mail.contract.js';
+import { supplierContract } from './contracts/supplier.contract.js';
 
 /**
  * Main contract router
@@ -11,6 +12,9 @@ export const contract = oc.router({
   todo: todoContract,
   file: fileContract,
   mail: mailContract,
+  supplier: supplierContract,
+  //language: languageContract,
+  //country: countryContract,
 });
 
 /**

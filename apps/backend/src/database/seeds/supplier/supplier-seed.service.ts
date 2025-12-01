@@ -29,7 +29,7 @@ export class SupplierSeedService {
       enSuppliers.map(async supplier => {
         const image = await this.fileRepository.save(
           this.fileRepository.create({
-            path: `https://minio-api.nibrasoft.com/pmv-docs-bucket/suppliers/${supplier.image.toUpperCase()}.webp`,
+            path: `https://minio-api.nibrasoft.com/pmv-docs-bucket/suppliers/${supplier.image}`,
             mimeType: 'image/webp',
             type: 'supplier',
           }),

@@ -18,9 +18,9 @@ export const CountrySchema = z.object({
     .nullable()
     .optional(),
   language: LanguageSchema,
-  createdAt: z.date(),
-  updatedAt: z.date(),
-  deletedAt: z.date().optional().nullable(),
+  createdAt: z.union([z.date(), z.string()]),
+  updatedAt: z.union([z.date(), z.string()]),
+  deletedAt: z.union([z.date(), z.string()]).optional().nullable(),
 });
 
 /**

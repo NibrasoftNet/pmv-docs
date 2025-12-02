@@ -3,6 +3,7 @@ import { todoContract } from './contracts/todo.contract.js';
 import { fileContract } from './contracts/file.contract.js';
 import { mailContract } from './contracts/mail.contract.js';
 import { supplierContract } from './contracts/supplier.contract.js';
+import { manufacturerContract } from './contracts/manufacturer.contract.js';
 
 /**
  * Main contract router
@@ -13,8 +14,7 @@ export const contract = oc.router({
   file: fileContract,
   mail: mailContract,
   supplier: supplierContract,
-  //language: languageContract,
-  //country: countryContract,
+  manufacturer: manufacturerContract,
 });
 
 /**

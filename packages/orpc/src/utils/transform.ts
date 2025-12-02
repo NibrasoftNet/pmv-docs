@@ -35,6 +35,24 @@ export function transformSupplier<
   };
 }
 
+export function transformManufacturer<
+  T extends { createdAt: string | Date; updatedAt: string | Date },
+>(
+  manufacturer: T,
+): Omit<T, 'createdAt' | 'updatedAt'> & { createdAt: Date; updatedAt: Date } {
+  return {
+    ...manufacturer,
+    createdAt:
+      typeof manufacturer.createdAt === 'string'
+        ? new Date(manufacturer.createdAt)
+        : manufacturer.createdAt,
+    updatedAt:
+      typeof manufacturer.updatedAt === 'string'
+        ? new Date(manufacturer.updatedAt)
+        : manufacturer.updatedAt,
+  };
+}
+
 /**
  * Transform an array of todos from API response to runtime types
  */
@@ -55,6 +73,16 @@ export function transformSuppliers<
   Omit<T, 'createdAt' | 'updatedAt'> & { createdAt: Date; updatedAt: Date }
 > {
   return suppliers.map(transformSupplier);
+}
+
+export function transformManufacturers<
+  T extends { createdAt: string | Date; updatedAt: string | Date },
+>(
+  manufacturers: T[],
+): Array<
+  Omit<T, 'createdAt' | 'updatedAt'> & { createdAt: Date; updatedAt: Date }
+> {
+  return manufacturers.map(transformManufacturer);
 }
 
 /**

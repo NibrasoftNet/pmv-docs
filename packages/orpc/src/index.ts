@@ -13,12 +13,14 @@ export * from './schemas/supplier.schema.js';
 export * from './schemas/address.schema.js';
 export * from './schemas/country.schema.js';
 export * from './schemas/language.schema.js';
+export * from './schemas/manufacturer.schema.js';
 
 // Export contracts
 export * from './contracts/todo.contract.js';
 export * from './contracts/file.contract.js';
 export * from './contracts/mail.contract.js';
 export * from './contracts/supplier.contract.js';
+export * from './contracts/manufacturer.contract.js';
 
 // Export main contract router
 export { contract, type Contract } from './contract.js';

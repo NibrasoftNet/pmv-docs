@@ -9,9 +9,9 @@ export const LanguageSchema = z.object({
   isoCode: z.string().max(10, 'ISO code too long').optional(),
   locale: z.string().max(10, 'Locale too long').optional(),
   flagEmoji: z.string().max(10, 'Flag emoji too long').optional(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-  deletedAt: z.date().optional().nullable(),
+  createdAt: z.union([z.date(), z.string()]),
+  updatedAt: z.union([z.date(), z.string()]),
+  deletedAt: z.union([z.date(), z.string()]).optional().nullable(),
 });
 
 /**

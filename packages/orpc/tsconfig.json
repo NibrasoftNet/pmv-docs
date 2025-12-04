@@ -3,13 +3,14 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "module": "NodeNext", // Use NodeNext
-    "moduleResolution": "NodeNext", // Use NodeNext
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "declarationMap": true,
     "composite": true,
     "incremental": true,
     "declaration": true,
-    "esModuleInterop": true
+    "allowImportingTsExtensions": false, // Don't require .js extensions
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

@@ -73,10 +73,10 @@ This places components in `packages/ui/src/components/` for sharing across apps.
 ### Using Components
 
 ```tsx
-import { Button } from "@workspace/ui/components/button"
+import { Button } from '@workspace/ui/components/button';
 
 export default function Page() {
-  return <Button>Click me</Button>
+  return <Button>Click me</Button>;
 }
 ```
 
@@ -99,18 +99,20 @@ This monorepo uses [oRPC](https://orpc.dev) for end-to-end type-safe API communi
 ### Quick Example
 
 **Define Contract** (`packages/orpc/src/contracts/todo.contract.ts`):
+
 ```typescript
 export const todoContract = {
-  list: oc.route({ method: 'GET', path: '/todos' })
-    .output(z.array(TodoSchema)),
-  
-  create: oc.route({ method: 'POST', path: '/todos' })
+  list: oc.route({ method: 'GET', path: '/todos' }).output(z.array(TodoSchema)),
+
+  create: oc
+    .route({ method: 'POST', path: '/todos' })
     .input(CreateTodoSchema)
     .output(TodoSchema),
 };
 ```
 
 **Backend Implementation** (`apps/backend/src/todos/todos.controller.ts`):
+
 ```typescript
 @Controller()
 export class TodosController {
@@ -124,6 +126,7 @@ export class TodosController {
 ```
 
 **Frontend Usage** (`apps/web/app/todos/page.tsx`):
+
 ```typescript
 import { orpc } from '@/lib/orpc-client';
 
@@ -137,8 +140,6 @@ const newTodo = await orpc.todo.create({ title: 'Test', completed: false });
 Visit `/todos` in the web app to see the full CRUD implementation with type-safe API calls.
 
 For more details, see `packages/orpc/README.md`.
-
-
 
 ### TypeScript
 
@@ -173,6 +174,7 @@ This monorepo uses:
 ## 📚 Tech Stack
 
 ### Frontend (web)
+
 - Next.js 16 (App Router)
 - React 19.2
 - TypeScript
@@ -181,6 +183,7 @@ This monorepo uses:
 - oRPC client with OpenAPILink
 
 ### Backend (backend)
+
 - NestJS 11
 - TypeORM
 - PostgreSQL
@@ -189,18 +192,51 @@ This monorepo uses:
 - Jest for testing
 
 ### Shared (packages/orpc)
+
 - oRPC contracts
 - Zod schemas
 - OpenAPI routes
 - Full type inference
 
 ### Tooling
+
 - Turborepo for monorepo management
 - ESLint 9 for linting
 - Prettier for formatting
 - pnpm for package management
 
+## 🚢 Deployment
+
+This project is ready for production deployment using Docker Compose and Dokploy.
+
+### Quick Start
+
+```bash
+# Test production build locally
+./deployment/deploy-test.sh
+
+# Check service health
+./deployment/health-check.sh
+```
+
+### Deployment Options
+
+- **[Dokploy Deployment Guide](./deployment/DEPLOYMENT.md)** - Complete guide for deploying with Dokploy
+- **Docker Compose** - Production-ready compose file at `deployment/docker-compose.prod.yaml`
+- **Environment Configuration** - See `deployment/env.prod.example`
+
+### Production Stack
+
+- **Frontend**: Next.js app (Port 3000)
+- **Backend**: NestJS API (Port 3001)
+- **Database**: PostgreSQL 16 with PostGIS
+- **Storage**: MinIO object storage
+- **Reverse Proxy**: Configured via Dokploy with SSL/TLS
+
+For detailed deployment instructions, see [DEPLOYMENT.md](./deployment/DEPLOYMENT.md).
+
 ## 📄 License
+
 MIT - Public project open for contribution
 
 Next: [Project Setup](./docs/setup.md)

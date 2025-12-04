@@ -19,8 +19,8 @@ async function bootstrap() {
       process.env.FRONTEND_URL ||
       'http://localhost:4010' ||
       'http://localhost:5010' ||
-      'http://pmv-docs.nibrasoft.com' ||
-      'http://pmv-docs-api.nibrasoft.com',
+      'https://pmv-docs.nibrasoft.com' ||
+      'https://pmv-docs-api.nibrasoft.com',
     credentials: true,
   });
 

@@ -71,8 +71,8 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_APP_URL: http://pmv-docs.nibrasoft.com
-        NEXT_PUBLIC_API_URL: http://pmv-docs-api.nibrasoft.com
+        NEXT_PUBLIC_APP_URL: https://pmv-docs.nibrasoft.com
+        NEXT_PUBLIC_API_URL: https://pmv-docs-api.nibrasoft.com
     ports:
       - 5010:5010 # Backend port
       - 4010:4010 # Web port

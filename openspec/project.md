@@ -54,7 +54,7 @@ A modern full-stack monorepo designed for managing automotive aftermarket data (
 
 - **Node Version**: >= 20
 - **Package Manager**: pnpm 10.4.1+
-- **Environment**: Requires `.env.local` for configuration.
+- **Environment**: Requires `.env` for configuration.
 
 ## External Dependencies
 

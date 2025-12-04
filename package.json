@@ -9,7 +9,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "typecheck": "turbo typecheck",
     "clean": "turbo clean && rm -rf node_modules",
-    "setup:env": "cp apps/web/env.example apps/web/.env.local && cp apps/backend/env.example apps/backend/.env.local"
+    "setup:env": "cp apps/web/env.example apps/web/.env && cp apps/backend/env.example apps/backend/.env"
   },
   "dependencies": {
     "@orpc/client": "^1.10.0",

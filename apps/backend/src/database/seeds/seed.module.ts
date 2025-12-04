@@ -37,16 +37,16 @@ import { SubModelJoinEngineSeedModule } from './sub-model-join-engine/sub-model-
     ConfigModule.forRoot({
       isGlobal: true,
       load: [databaseConfig, appConfig],
-      envFilePath: ['.env.local'],
+      envFilePath: ['.env'],
     }),
     TypeOrmModule.forRootAsync({
-       useClass: TypeOrmConfigService,
-       dataSourceFactory: async (options?: DataSourceOptions) => {
-         if (!options) {
-           throw new Error('DataSource options are required');
-         }
-         return new DataSource(options).initialize();
-       },
+      useClass: TypeOrmConfigService,
+      dataSourceFactory: async (options?: DataSourceOptions) => {
+        if (!options) {
+          throw new Error('DataSource options are required');
+        }
+        return new DataSource(options).initialize();
+      },
     }),
   ],
 })

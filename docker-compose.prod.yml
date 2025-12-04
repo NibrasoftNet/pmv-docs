@@ -84,22 +84,27 @@ services:
       - 'traefik.http.routers.pmv-docs-web.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.pmv-docs-web.tls.domains[0].main=pmv-docs.nibrasoft.com'
       - 'traefik.http.routers.pmv-docs-web.priority=1'
+      - 'traefik.http.routers.pmv-docs-web.service=pmv-docs-web'
       - 'traefik.http.services.pmv-docs-web.loadbalancer.server.port=4010'
       # Web HTTP to HTTPS redirect
       - 'traefik.http.routers.pmv-docs-web-http.rule=Host(`pmv-docs.nibrasoft.com`)'
       - 'traefik.http.routers.pmv-docs-web-http.entrypoints=web'
       - 'traefik.http.routers.pmv-docs-web-http.middlewares=https-redirect'
+      - 'traefik.http.routers.pmv-docs-web-http.service=pmv-docs-web'
       # Backend
       - 'traefik.http.routers.pmv-docs-backend.rule=Host(`pmv-docs-api.nibrasoft.com`)'
       - 'traefik.http.routers.pmv-docs-backend.entrypoints=websecure'
       - 'traefik.http.routers.pmv-docs-backend.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.pmv-docs-backend.tls.domains[0].main=pmv-docs-api.nibrasoft.com'
       - 'traefik.http.routers.pmv-docs-backend.priority=1'
+      - 'traefik.http.routers.pmv-docs-backend.service=pmv-docs-backend'
       - 'traefik.http.services.pmv-docs-backend.loadbalancer.server.port=5010'
       # Backend HTTP to HTTPS redirect
       - 'traefik.http.routers.pmv-docs-backend-http.rule=Host(`pmv-docs-api.nibrasoft.com`)'
       - 'traefik.http.routers.pmv-docs-backend-http.entrypoints=web'
       - 'traefik.http.routers.pmv-docs-backend-http.middlewares=https-redirect'
+      - 'traefik.http.routers.pmv-docs-backend-http.service=pmv-docs-backend'
+      # Shared HTTPS redirect middleware
       - 'traefik.http.middlewares.https-redirect.redirectscheme.scheme=https'
     environment:
       # Backend environment variables

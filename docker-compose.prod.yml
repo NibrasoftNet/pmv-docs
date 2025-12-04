@@ -27,20 +27,20 @@ services:
     restart: always
     ports:
       - ${ADMINER_PORT}:8080
-    labels:
-      - 'traefik.enable=true'
-      # Adminer
-      - 'traefik.http.routers.pmv-docs-adminer.rule=Host(`pmv-docs-api.nibrasoft.com`) && PathPrefix(`/adminer`)'
-      - 'traefik.http.routers.pmv-docs-adminer.entrypoints=websecure'
-      - 'traefik.http.routers.pmv-docs-adminer.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.pmv-docs-adminer.tls.domains[0].main=pmv-docs-api.nibrasoft.com'
-      - 'traefik.http.middlewares.pmv-docs-adminer-stripprefix.stripprefix.prefixes=/adminer'
-      - 'traefik.http.middlewares.pmv-docs-adminer-redirect.redirectscheme.scheme=https'
-      - 'traefik.http.routers.pmv-docs-adminer.middlewares=pmv-docs-adminer-stripprefix,pmv-docs-adminer-redirect'
-      - 'traefik.http.services.pmv-docs-adminer.loadbalancer.server.port=8080'
+    #labels:
+    #  - 'traefik.enable=true'
+    # Adminer
+    #  - 'traefik.http.routers.pmv-docs-adminer.rule=Host(`pmv-docs-api.nibrasoft.com`) && PathPrefix(`/adminer`)'
+    #  - 'traefik.http.routers.pmv-docs-adminer.entrypoints=websecure'
+    #  - 'traefik.http.routers.pmv-docs-adminer.tls.certresolver=letsencrypt'
+    #  - 'traefik.http.routers.pmv-docs-adminer.tls.domains[0].main=pmv-docs-api.nibrasoft.com'
+    #  - 'traefik.http.middlewares.pmv-docs-adminer-stripprefix.stripprefix.prefixes=/adminer'
+    #  - 'traefik.http.middlewares.pmv-docs-adminer-redirect.redirectscheme.scheme=https'
+    #  - 'traefik.http.routers.pmv-docs-adminer.middlewares=pmv-docs-adminer-stripprefix,pmv-docs-adminer-redirect'
+    #  - 'traefik.http.services.pmv-docs-adminer.loadbalancer.server.port=8080'
     networks:
-      - dokploy-network
       - pmv-network
+    #  - dokploy-network
 
   maildev:
     container_name: pmv-maildev
@@ -50,20 +50,20 @@ services:
     ports:
       - ${MAIL_CLIENT_PORT}:1080
       - ${MAIL_PORT}:1025
-    labels:
-      - 'traefik.enable=true'
-      # Maildev
-      - 'traefik.http.routers.pmv-docs-maildev.rule=Host(`pmv-docs-api.nibrasoft.com`) && PathPrefix(`/maildev`)'
-      - 'traefik.http.routers.pmv-docs-maildev.entrypoints=websecure'
-      - 'traefik.http.routers.pmv-docs-maildev.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.pmv-docs-maildev.tls.domains[0].main=pmv-docs-api.nibrasoft.com'
-      - 'traefik.http.middlewares.pmv-docs-maildev-stripprefix.stripprefix.prefixes=/maildev'
-      - 'traefik.http.middlewares.pmv-docs-maildev-redirect.redirectscheme.scheme=https'
-      - 'traefik.http.routers.pmv-docs-maildev.middlewares=pmv-docs-maildev-stripprefix,pmv-docs-maildev-redirect'
-      - 'traefik.http.services.pmv-docs-maildev.loadbalancer.server.port=1080'
+    #labels:
+    #  - 'traefik.enable=true'
+    # Maildev
+    #  - 'traefik.http.routers.pmv-docs-maildev.rule=Host(`pmv-docs-api.nibrasoft.com`) && PathPrefix(`/maildev`)'
+    #  - 'traefik.http.routers.pmv-docs-maildev.entrypoints=websecure'
+    #  - 'traefik.http.routers.pmv-docs-maildev.tls.certresolver=letsencrypt'
+    #  - 'traefik.http.routers.pmv-docs-maildev.tls.domains[0].main=pmv-docs-api.nibrasoft.com'
+    #  - 'traefik.http.middlewares.pmv-docs-maildev-stripprefix.stripprefix.prefixes=/maildev'
+    #  - 'traefik.http.middlewares.pmv-docs-maildev-redirect.redirectscheme.scheme=https'
+    #  - 'traefik.http.routers.pmv-docs-maildev.middlewares=pmv-docs-maildev-stripprefix,pmv-docs-maildev-redirect'
+    #  - 'traefik.http.services.pmv-docs-maildev.loadbalancer.server.port=1080'
     networks:
-      - dokploy-network
       - pmv-network
+      #  - dokploy-network
 
   monorepo:
     container_name: pmv-monorepo

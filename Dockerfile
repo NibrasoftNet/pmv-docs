@@ -106,6 +106,9 @@ COPY packages ./packages
 # Install production dependencies only
 RUN pnpm install --frozen-lockfile --prod
 
+# Copy built workspace packages
+COPY --from=backend-builder /app/packages/orpc/dist ./packages/orpc/dist
+
 # Copy built backend
 COPY --from=backend-builder /app/apps/backend/dist ./apps/backend/dist
 COPY --from=backend-builder /app/apps/backend/src/database/migrations ./apps/backend/src/database/migrations

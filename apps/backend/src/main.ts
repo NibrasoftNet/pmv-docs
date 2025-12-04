@@ -43,7 +43,10 @@ async function bootstrap() {
     },
     servers: [
       {
-        url: `http://localhost:${process.env.APP_PORT ?? 5010}/api`,
+        url:
+          process.env.NODE_ENV === 'development'
+            ? `http://localhost:5010/api`
+            : `https://pmv-docs-api.nibrasoft.com/api`,
         description: 'Development server',
       },
     ],

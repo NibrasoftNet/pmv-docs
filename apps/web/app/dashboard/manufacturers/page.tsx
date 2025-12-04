@@ -38,7 +38,7 @@ export default function ManufacturersPage() {
   };
 
   return (
-    <div className="container mx-auto py-8 px-4 max-w-4xl">
+    <div className="container mx-auto py-8 px-4 max-w-5xl">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2">Manufacturers List</h1>
         <p className="text-muted-foreground">
@@ -65,19 +65,24 @@ export default function ManufacturersPage() {
             </CardContent>
           </Card>
         ) : (
-          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {manufacturers.map(manufacturer => (
               <Card key={manufacturer.id} className="col-span-1">
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-4">
+                <CardContent className="p-0">
+                  <div className="flex flex-col items-center gap-4">
                     {manufacturer.image ? (
-                      <div className="relative w-16 h-16 rounded-md overflow-hidden flex-shrink-0">
-                        <Image
-                          src={manufacturer.image.path}
-                          alt={manufacturer.name}
-                          fill
-                          className="object-cover"
-                        />
+                      <div className="flex flex-col items-start gap-2 w-full">
+                        <div className="relative w-16 h-16 rounded-md overflow-hidden flex-shrink-0">
+                          <Image
+                            src={manufacturer.image.path}
+                            alt={manufacturer.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <p className="w-full text-center max-w-[50px]">
+                          {manufacturer.image.path}
+                        </p>
                       </div>
                     ) : (
                       <div className="w-16 h-16 rounded-md bg-muted flex items-center justify-center flex-shrink-0">

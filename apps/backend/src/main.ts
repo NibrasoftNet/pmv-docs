@@ -15,7 +15,12 @@ async function bootstrap() {
   const configService = app.get(ConfigService<AllConfigType>);
   // Enable CORS for frontend access
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:4010',
+    origin:
+      process.env.FRONTEND_URL ||
+      'http://localhost:4010' ||
+      'http://localhost:5010' ||
+      'http://pmv-docs.nibrasoft.com' ||
+      'http://pmv-docs-api.nibrasoft.com',
     credentials: true,
   });
 

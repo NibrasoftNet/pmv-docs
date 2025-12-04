@@ -1,11 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   transpilePackages: ['@workspace/ui'],
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'minio-api.nibrasoft.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'pmv-docs.nibrasoft.com',
       },
       {
         protocol: 'http',

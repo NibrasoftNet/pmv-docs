@@ -67,7 +67,7 @@ export class ManufacturerSeedService {
 
               let image: FileEntity | null = null;
               if (fileName) {
-                const path = `https://minio-api.nibrasoft.com/pmv-docs-bucket/manufacturers/${fileName}.png`;
+                const path = `https://minio-api.nibrasoft.com/pmv-docs-bucket/manufacturers/${fileName}.webp`;
                 // Check if file path already exists
                 const existingFile = await this.fileRepository.findOne({
                   where: { path },

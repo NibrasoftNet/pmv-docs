@@ -1,6 +1,9 @@
 import { INestApplication } from '@nestjs/common';
-import { FILE_UPLOAD_METADATA_KEY, FileUploadMetadata, AdditionalField } from './file-upload.decorator.js';
-import { getSchemaPath } from '@nestjs/swagger';
+import {
+  FILE_UPLOAD_METADATA_KEY,
+  FileUploadMetadata,
+  AdditionalField,
+} from './file-upload.decorator.js';
 
 interface FileUploadRoute {
   path: string;
@@ -31,13 +34,13 @@ export function scanFileUploadRoutes(app: INestApplication): FileUploadRoute[] {
 
       const prototype = Object.getPrototypeOf(instance);
       const methodNames = Object.getOwnPropertyNames(prototype).filter(
-        (name) => name !== 'constructor' && typeof prototype[name] === 'function'
+        name => name !== 'constructor' && typeof prototype[name] === 'function',
       );
 
-      methodNames.forEach((methodName) => {
+      methodNames.forEach(methodName => {
         const metadata: FileUploadMetadata = Reflect.getMetadata(
           FILE_UPLOAD_METADATA_KEY,
-          prototype[methodName]
+          prototype[methodName],
         );
 
         if (metadata) {
@@ -48,7 +51,8 @@ export function scanFileUploadRoutes(app: INestApplication): FileUploadRoute[] {
           if (path !== undefined && method !== undefined) {
             routes.push({
               path: typeof path === 'string' ? path : '',
-              method: typeof method === 'string' ? method.toLowerCase() : 'post',
+              method:
+                typeof method === 'string' ? method.toLowerCase() : 'post',
               metadata,
             });
           }
@@ -67,7 +71,7 @@ export function configureFileUploadOpenAPI(
   openAPISpec: any,
   routes: FileUploadRoute[],
   allowedFileTypes: string,
-  allowedMimeTypes: string
+  allowedMimeTypes: string,
 ): void {
   // Ensure components.schemas exists
   if (!openAPISpec.components) {
@@ -117,7 +121,7 @@ export function configureFileUploadOpenAPI(
           // For complex objects, we need to handle it as a string in FormData
           // because FormData can only send strings for non-file fields
           const schemaName = field.schema.name || 'UnknownSchema';
-          
+
           // Register the schema if it has a zodSchema property (for Zod DTOs)
           if (field.schema.zodSchema) {
             // The schema will be auto-registered by nestjs-zod or we reference it

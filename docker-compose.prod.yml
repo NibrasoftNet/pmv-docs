@@ -36,7 +36,7 @@ services:
       - 'traefik.http.routers.pmv-docs-adminer.tls.domains[0].main=pmv-docs-api.nibrasoft.com'
       - 'traefik.http.middlewares.pmv-docs-adminer-stripprefix.stripprefix.prefixes=/adminer'
       - 'traefik.http.middlewares.pmv-docs-adminer-redirect.redirectscheme.scheme=https'
-      - 'traefik.http.routers.pmv-docs-adminer.middlewares=pmv-docs-adminer-redirect'
+      - 'traefik.http.routers.pmv-docs-adminer.middlewares=pmv-docs-adminer-stripprefix,pmv-docs-adminer-redirect'
       - 'traefik.http.services.pmv-docs-adminer.loadbalancer.server.port=8080'
     networks:
       - dokploy-network
@@ -59,7 +59,7 @@ services:
       - 'traefik.http.routers.pmv-docs-maildev.tls.domains[0].main=pmv-docs-api.nibrasoft.com'
       - 'traefik.http.middlewares.pmv-docs-maildev-stripprefix.stripprefix.prefixes=/maildev'
       - 'traefik.http.middlewares.pmv-docs-maildev-redirect.redirectscheme.scheme=https'
-      - 'traefik.http.routers.pmv-docs-maildev.middlewares=pmv-docs-maildev-redirect'
+      - 'traefik.http.routers.pmv-docs-maildev.middlewares=pmv-docs-maildev-stripprefix,pmv-docs-maildev-redirect'
       - 'traefik.http.services.pmv-docs-maildev.loadbalancer.server.port=1080'
     networks:
       - dokploy-network

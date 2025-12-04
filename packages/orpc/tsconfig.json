@@ -3,13 +3,13 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "module": "Node16",
+    "moduleResolution": "node16",
     "declarationMap": true,
     "composite": true,
     "incremental": true,
     "declaration": true,
-    "allowImportingTsExtensions": false, // Don't require .js extensions
+    "esModuleInterop": true,
     "resolveJsonModule": true
   },
   "include": ["src/**/*"],

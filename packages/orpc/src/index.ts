@@ -6,27 +6,27 @@
 export type { ContractRouter } from '@orpc/contract';
 
 // Export schemas
-export * from './schemas/todo.schema';
-export * from './schemas/file.schema';
-export * from './schemas/mail.schema';
-export * from './schemas/supplier.schema';
-export * from './schemas/address.schema';
-export * from './schemas/country.schema';
-export * from './schemas/language.schema';
-export * from './schemas/manufacturer.schema';
+export * from './schemas/todo.schema.js';
+export * from './schemas/file.schema.js';
+export * from './schemas/mail.schema.js';
+export * from './schemas/supplier.schema.js';
+export * from './schemas/address.schema.js';
+export * from './schemas/country.schema.js';
+export * from './schemas/language.schema.js';
+export * from './schemas/manufacturer.schema.js';
 
 // Export contracts
-export * from './contracts/todo.contract';
-export * from './contracts/file.contract';
-export * from './contracts/mail.contract';
-export * from './contracts/supplier.contract';
-export * from './contracts/manufacturer.contract';
+export * from './contracts/todo.contract.js';
+export * from './contracts/file.contract.js';
+export * from './contracts/mail.contract.js';
+export * from './contracts/supplier.contract.js';
+export * from './contracts/manufacturer.contract.js';
 
 // Export main contract router
-export { contract, type Contract } from './contract';
+export { contract, type Contract } from './contract.js';
 
 // Export utilities
-export * from './utils/transform';
+export * from './utils/transform.js';
 
 // Export domains
-export * from './domains/articles-reference-type.enum';
+export * from './domains/articles-reference-type.enum.js';

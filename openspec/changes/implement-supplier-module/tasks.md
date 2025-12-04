@@ -1,5 +1,0 @@
-- [ ] Define `SupplierSchema` and `supplier.contract.ts` in `packages/orpc`.
-- [ ] Implement `findAll` method in `apps/backend/src/supplier/supplier.service.ts` with pagination using `nestjs-paginate`.
-- [ ] Implement `list` procedure in `apps/backend/src/supplier/supplier.controller.ts`.
-- [ ] Create `apps/web/app/dashboard/suppliers/page.tsx` with data fetching and UI.
-- [ ] Verify end-to-end flow.

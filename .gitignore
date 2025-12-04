@@ -112,4 +112,3 @@ pids
 .dynamodb/
 /deployment/pmv-db/
 /deployment/storage/
-/pnpm-lock.yaml

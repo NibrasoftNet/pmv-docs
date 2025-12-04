@@ -32,7 +32,7 @@ COPY tsconfig.json ./
 RUN which tsc || echo "tsc not in PATH" && ls -la node_modules/.bin/ | grep tsc || echo "tsc not in node_modules/.bin"
 
 # build packages
-RUN pnpm build --filter=packages
+RUN turbo build --filter=packages
 
 # Build the backend
 RUN turbo build --filter=backend

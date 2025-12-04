@@ -54,7 +54,7 @@ const __dirname = path.dirname(__filename);
     ConfigModule.forRoot({
       isGlobal: true,
       load: [databaseConfig, fileConfig, appConfig, mailConfig],
-      envFilePath: ['.env.local'],
+      envFilePath: ['.env'],
     }),
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,

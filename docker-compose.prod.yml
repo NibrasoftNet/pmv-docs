@@ -1,0 +1,147 @@
+name: pmv-docs-prod
+
+services:
+  postgres:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: pmv-postgres
+    ports:
+      - 5439:5432
+    volumes:
+      - ./deployment/pmv-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    healthcheck:
+      test:
+        ['CMD-SHELL', 'pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_NAME}']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - pmv-network
+
+  adminer:
+    image: adminer:latest
+    container_name: pmv-adminer
+    restart: always
+    ports:
+      - ${ADMINER_PORT}:8080
+    labels:
+      - 'traefik.enable=true'
+      # Adminer
+      - 'traefik.http.routers.pmv-docs-adminer.rule=Host(`pmv-docs-api.nibrasoft.com`) && PathPrefix(`/adminer`)'
+      - 'traefik.http.routers.pmv-docs-adminer.entrypoints=websecure'
+      - 'traefik.http.routers.pmv-docs-adminer.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.pmv-docs-adminer.tls.domains[0].main=pmv-docs-api.nibrasoft.com'
+      - 'traefik.http.middlewares.pmv-docs-adminer-stripprefix.stripprefix.prefixes=/adminer'
+      - 'traefik.http.middlewares.pmv-docs-adminer-redirect.redirectscheme.scheme=https'
+      - 'traefik.http.routers.pmv-docs-adminer.middlewares=pmv-docs-adminer-redirect'
+      - 'traefik.http.services.pmv-docs-adminer.loadbalancer.server.port=8080'
+    networks:
+      - dokploy-network
+      - pmv-network
+
+  maildev:
+    container_name: pmv-maildev
+    build:
+      context: ./deployment
+      dockerfile: maildev.Dockerfile
+    ports:
+      - ${MAIL_CLIENT_PORT}:1080
+      - ${MAIL_PORT}:1025
+    labels:
+      - 'traefik.enable=true'
+      # Maildev
+      - 'traefik.http.routers.pmv-docs-maildev.rule=Host(`pmv-docs-api.nibrasoft.com`) && PathPrefix(`/maildev`)'
+      - 'traefik.http.routers.pmv-docs-maildev.entrypoints=websecure'
+      - 'traefik.http.routers.pmv-docs-maildev.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.pmv-docs-maildev.tls.domains[0].main=pmv-docs-api.nibrasoft.com'
+      - 'traefik.http.middlewares.pmv-docs-maildev-stripprefix.stripprefix.prefixes=/maildev'
+      - 'traefik.http.middlewares.pmv-docs-maildev-redirect.redirectscheme.scheme=https'
+      - 'traefik.http.routers.pmv-docs-maildev.middlewares=pmv-docs-maildev-redirect'
+      - 'traefik.http.services.pmv-docs-maildev.loadbalancer.server.port=1080'
+    networks:
+      - dokploy-network
+      - pmv-network
+
+  monorepo:
+    container_name: pmv-monorepo
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_APP_URL: http://pmv-docs.nibrasoft.com
+        NEXT_PUBLIC_API_URL: http://pmv-docs-api.nibrasoft.com
+    ports:
+      - 5010:5010 # Backend port
+      - 4010:4010 # Web port
+    labels:
+      - 'traefik.enable=true'
+      # Web
+      - 'traefik.http.routers.pmv-docs-web.rule=Host(`pmv-docs.nibrasoft.com`)'
+      - 'traefik.http.routers.pmv-docs-web.entrypoints=websecure'
+      - 'traefik.http.routers.pmv-docs-web.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.pmv-docs-web.tls.domains[0].main=pmv-docs.nibrasoft.com'
+      - 'traefik.http.middlewares.pmv-docs-web-redirect.redirectscheme.scheme=https'
+      - 'traefik.http.routers.pmv-docs-web.middlewares=pmv-docs-web-redirect'
+      - 'traefik.http.services.pmv-docs-web.loadbalancer.server.port=4010'
+      # Backend
+      - 'traefik.http.routers.pmv-docs-backend.rule=Host(`pmv-docs-api.nibrasoft.com`)'
+      - 'traefik.http.routers.pmv-docs-backend.entrypoints=websecure'
+      - 'traefik.http.routers.pmv-docs-backend.tls.certresolver=letsencrypt'
+      - 'traefik.http.routers.pmv-docs-backend.tls.domains[0].main=pmv-docs-api.nibrasoft.com'
+      - 'traefik.http.middlewares.pmv-docs-backend-redirect.redirectscheme.scheme=https'
+      - 'traefik.http.routers.pmv-docs-backend.middlewares=pmv-docs-backend-redirect'
+      - 'traefik.http.services.pmv-docs-backend.loadbalancer.server.port=5010'
+    environment:
+      # Backend environment variables
+      NODE_ENV: production
+      APP_PORT: 5010
+      APP_NAME: PMV docs API
+      API_PREFIX: api
+      APP_FALLBACK_LANGUAGE: en
+      APP_HEADER_LANGUAGE: x-custom-lang
+      DATABASE_TYPE: postgres
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_SYNCHRONIZE: 'true'
+      FILE_DRIVER: minio
+      MINIO_ENDPOINT: ${MINIO_ENDPOINT}
+      MINIO_PORT: ${MINIO_PORT}
+      MINIO_ACCESS_KEY_ID: ${MINIO_ACCESS_KEY_ID}
+      MINIO_SECRET_ACCESS_KEY: ${MINIO_SECRET_ACCESS_KEY}
+      MINIO_DEFAULT_BUCKET: ${MINIO_DEFAULT_BUCKET}
+      MINIO_USE_SSL: ${MINIO_USE_SSL}
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USER: ${MAIL_USER}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_IGNORE_TLS: ${MAIL_IGNORE_TLS}
+      MAIL_SECURE: ${MAIL_SECURE}
+      MAIL_REQUIRE_TLS: ${MAIL_REQUIRE_TLS}
+      MAIL_DEFAULT_EMAIL: ${MAIL_DEFAULT_EMAIL}
+      MAIL_DEFAULT_NAME: ${MAIL_DEFAULT_NAME}
+      FRONTEND_DOMAIN: ${FRONTEND_DOMAIN}
+      BACKEND_DOMAIN: ${BACKEND_DOMAIN}
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
+      # Web environment variables
+      API_URL: ${API_URL}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      maildev:
+        condition: service_started
+    networks:
+      - dokploy-network
+      - pmv-network
+
+networks:
+  dokploy-network:
+    external: true
+  pmv-network:
+    driver: bridge

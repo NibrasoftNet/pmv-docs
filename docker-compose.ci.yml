@@ -1,0 +1,105 @@
+name: pmv-docs-ci
+
+services:
+  postgres:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: pmv-postgres
+    ports:
+      - ${DATABASE_PORT}:5432
+    volumes:
+      - ./deployment/pmv-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    healthcheck:
+      test:
+        ['CMD-SHELL', 'pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_NAME}']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - pmv-network
+
+  adminer:
+    image: adminer:latest
+    container_name: pmv-adminer
+    restart: always
+    ports:
+      - ${ADMINER_PORT}:8080
+    networks:
+      - pmv-network
+
+  maildev:
+    container_name: pmv-maildev
+    build:
+      context: ./deployment
+      dockerfile: maildev.Dockerfile
+    ports:
+      - ${MAIL_CLIENT_PORT}:1080
+      - ${MAIL_PORT}:1025
+    networks:
+      - pmv-network
+
+  monorepo:
+    container_name: pmv-monorepo
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_APP_URL: ${APP_URL}
+        NEXT_PUBLIC_API_URL: ${API_URL}
+    ports:
+      - 5010:5010 # Backend port
+      - 4010:4010 # Web port
+    environment:
+      # Backend environment variables
+      NODE_ENV: production
+      APP_PORT: 5010
+      APP_NAME: PMV docs API
+      API_PREFIX: api
+      APP_FALLBACK_LANGUAGE: en
+      APP_HEADER_LANGUAGE: x-custom-lang
+      # Database environment variables
+      DATABASE_TYPE: postgres
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_SYNCHRONIZE: 'true'
+      # File environment variables
+      FILE_DRIVER: minio
+      MINIO_ENDPOINT: ${MINIO_ENDPOINT}
+      MINIO_PORT: ${MINIO_PORT}
+      MINIO_ACCESS_KEY_ID: ${MINIO_ACCESS_KEY_ID}
+      MINIO_SECRET_ACCESS_KEY: ${MINIO_SECRET_ACCESS_KEY}
+      MINIO_DEFAULT_BUCKET: ${MINIO_DEFAULT_BUCKET}
+      MINIO_USE_SSL: ${MINIO_USE_SSL}
+      # Mail environment variables
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USER: ${MAIL_USER}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_IGNORE_TLS: ${MAIL_IGNORE_TLS}
+      MAIL_SECURE: ${MAIL_SECURE}
+      MAIL_REQUIRE_TLS: ${MAIL_REQUIRE_TLS}
+      MAIL_DEFAULT_EMAIL: ${MAIL_DEFAULT_EMAIL}
+      MAIL_DEFAULT_NAME: ${MAIL_DEFAULT_NAME}
+      FRONTEND_DOMAIN: ${APP_URL}
+      BACKEND_DOMAIN: ${API_URL}
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
+      # Web environment variables
+      API_URL: ${API_URL}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      maildev:
+        condition: service_started
+    networks:
+      - pmv-network
+
+networks:
+  pmv-network:
+    driver: bridge

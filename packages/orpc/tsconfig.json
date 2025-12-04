@@ -3,11 +3,13 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "module": "NodeNext", // Use NodeNext
+    "moduleResolution": "NodeNext", // Use NodeNext
     "declarationMap": true,
     "composite": true,
-    "incremental": true
+    "incremental": true,
+    "declaration": true,
+    "esModuleInterop": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

@@ -35,7 +35,7 @@ RUN which tsc || echo "tsc not in PATH" && ls -la node_modules/.bin/ | grep tsc 
 RUN turbo build --filter=./packages/orpc
 
 # Build the backend
-RUN turbo build --filter=backend
+RUN turbo build --filter=backend...
 
 # Build stage for web
 FROM node:20-slim AS web-builder

@@ -7,7 +7,15 @@ import { OpenAPIGenerator } from '@orpc/openapi';
 import { ZodToJsonSchemaConverter } from '@orpc/zod';
 import { contract } from '@workspace/orpc';
 import { apiReference } from '@scalar/nestjs-api-reference';
-import { VersioningType } from '@nestjs/common';
+import { ImATeapotException, VersioningType } from '@nestjs/common';
+
+const whitelist = [
+  process.env.FRONTEND_URL,
+  'http://localhost:4010',
+  'http://localhost:5010',
+  'https://pmv-docs.nibrasoft.com',
+  'https://pmv-docs-api.nibrasoft.com',
+];
 
 async function bootstrap() {
   // Create app with body parser enabled
@@ -15,13 +23,18 @@ async function bootstrap() {
   const configService = app.get(ConfigService<AllConfigType>);
   // Enable CORS for frontend access
   app.enableCors({
-    origin:
-      process.env.FRONTEND_URL ||
-      'http://localhost:4010' ||
-      'http://localhost:5010' ||
-      'https://pmv-docs.nibrasoft.com' ||
-      'https://pmv-docs-api.nibrasoft.com',
-    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
+    origin: function (origin, callback) {
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+      if (whitelist.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new ImATeapotException('Not allowed by CORS'), false);
+      }
+    },
   });
 
   // Enable URI versioning

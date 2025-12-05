@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Get the current branch name
+current_branch=$(git symbolic-ref --short HEAD 2>/dev/null || echo "")
+
+# Warn if committing directly to main (but don't block)
+if [ "$current_branch" = "main" ]; then
+  echo "⚠️  WARNING: You are committing directly to the 'main' branch!"
+  echo "Consider creating a feature branch instead."
+  echo ""
+fi
+
+# Run linting
+npm run lint

@@ -1,0 +1,50 @@
+name: PMV Docs CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the code
+      - uses: actions/checkout@v4
+
+      # Step 2: Set up Docker
+      - name: Check Docker version
+        run: |
+          docker --version
+          docker compose version
+      # Step 3: Pull environment variables
+      - name: Set up environment variables
+        run: |
+          cp env.example .env
+      # Step 4: Start Docker Compose services
+      - name: Start services
+        run: |
+          docker compose -f docker-compose.ci.yml --env-file .env up -d --build
+      # Step 5: Wait for pmv-monorepo service to become healthy
+      - name: Wait for pmv-monorepo service
+        run: |
+          # Wait for pmv-monorepo to be healthy
+          for i in {1..10}; do
+            STATUS=$(docker inspect -f '{{.State.Health.Status}}' pmv-monorepo 2>/dev/null || echo "unavailable")
+            echo "pmv-monorepo status: $STATUS"
+            if [ "$STATUS" == "healthy" ]; then
+              echo "pmv-monorepo is healthy and ready."
+              break
+            elif [ "$i" -eq 10 ]; then
+              echo "pmv-monorepo failed to become healthy in time."
+              docker compose -f docker-compose.ci.yml logs monorepo
+            fi
+            echo "Waiting for pmv-monorepo to become healthy..."
+            sleep 5
+          done
+      # Step 6: Stop and clean up Docker Compose services
+      - name: Stop services
+        run: |
+          docker compose -f docker-compose.ci.yml down

@@ -24,6 +24,7 @@ async function bootstrap() {
   // Enable CORS for frontend access
   app.enableCors({
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
+    credentials: true, // Required for Better Auth to send cookies
     origin: function (origin, callback) {
       if (!origin) {
         callback(null, true);

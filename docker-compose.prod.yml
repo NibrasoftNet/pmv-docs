@@ -141,6 +141,7 @@ services:
       MAIL_DEFAULT_NAME: ${MAIL_DEFAULT_NAME}
       GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
       GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
       # Web environment variables
       API_URL: ${API_URL}
     depends_on:

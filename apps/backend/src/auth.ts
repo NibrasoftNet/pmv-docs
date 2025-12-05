@@ -28,5 +28,5 @@ export const auth = betterAuth({
       clientSecret: authEnv.GITHUB_CLIENT_SECRET,
     },
   },
-  trustedOrigins: ['http://localhost:3000', 'http://localhost:5010'],
+  trustedOrigins: ['http://localhost:5010', 'http://localhost:4010', 'https://pmv-docs.nibrasoft.com', 'https://pmv-docs-api.nibrasoft.com',],
 });

@@ -6,11 +6,9 @@ import {
   MemoryHealthIndicator,
   TypeOrmHealthIndicator,
 } from '@nestjs/terminus';
-import { ApiTags } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import { AllConfigType } from '../config/config.type.js';
 
-@ApiTags('Health')
 @Controller({ path: 'health', version: '1' })
 export class HealthController {
   constructor(

@@ -111,9 +111,9 @@ COPY --from=backend-builder /app/packages/orpc/dist ./packages/orpc/dist
 
 # Copy built backend
 COPY --from=backend-builder /app/apps/backend/dist ./apps/backend/dist
-COPY --from=backend-builder /app/apps/backend/src/database/migrations ./apps/backend/src/database/migrations
+# COPY --from=backend-builder /app/apps/backend/src/database/migrations ./apps/backend/src/database/migrations
 # Copy seed data files (CSV files needed by seed scripts) to dist folder where compiled code expects them
-COPY --from=backend-builder /app/apps/backend/src/database/seeds ./apps/backend/dist/database/seeds
+# COPY --from=backend-builder /app/apps/backend/src/database/seeds ./apps/backend/dist/database/seeds
 
 # Copy built web app
 COPY --from=web-builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./

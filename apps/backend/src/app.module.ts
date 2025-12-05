@@ -45,6 +45,7 @@ import { EanReferenceModule } from './articles/ean-reference/ean-reference.modul
 import { IamJoinOemModule } from './articles-join/iam-join-oem/iam-join-oem.module.js';
 import { IamJoinEanModule } from './articles-join/iam-join-ean/iam-join-ean.module.js';
 import { IamJoinSubModelModule } from './articles-join/iam-join-sub-model/iam-join-sub-model.module.js';
+import { HealthModule } from './health/health.module.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -97,6 +98,7 @@ const __dirname = path.dirname(__filename);
       imports: [ConfigModule],
       inject: [ConfigService],
     }),
+    HealthModule,
     MinioModule,
     MulterConfigModule,
     TodosModule,
